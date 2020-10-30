@@ -91,7 +91,7 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
 
         host_network = true
         container {
-          image = "hetznercloud/hcloud-cloud-controller-manager:v1.8.0"
+          image = "hetznercloud/hcloud-cloud-controller-manager:${var.ccm_image_version}"
           name  = "hcloud-cloud-controller-manager"
           command = [
             "/bin/hcloud-cloud-controller-manager",
