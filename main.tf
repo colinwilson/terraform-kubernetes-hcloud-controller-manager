@@ -103,7 +103,7 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
           ]
 
           resources {
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "50Mi"
             }
