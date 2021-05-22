@@ -85,6 +85,11 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
         }
 
         toleration {
+          key = "node-role.kubernetes.io/control-plane"
+          effect = "NoSchedule"
+        }
+
+        toleration {
           key = "node.kubernetes.io/not-ready"
           effect = "NoSchedule"
         }
