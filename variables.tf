@@ -15,5 +15,5 @@ variable "cluster_cidr" {
 variable "ccm_image_version" {
   type        = string
   description = "Hetzner Cloud Controller Manager image version"
-  default     = "v1.10.0"
+  default     = "v1.11.0"
 }

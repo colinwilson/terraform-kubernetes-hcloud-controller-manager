@@ -1,12 +1,12 @@
 # Create secret containing Hetzner Cloud API token
 resource "kubernetes_secret" "hcloud_token" {
   metadata {
-    name = "hcloud"
+    name      = "hcloud"
     namespace = "kube-system"
   }
 
   data = {
-    token = var.hcloud_token
+    token   = var.hcloud_token
     network = var.network_name
   }
 }
@@ -14,7 +14,7 @@ resource "kubernetes_secret" "hcloud_token" {
 # Create Hetzner cloud controller service account
 resource "kubernetes_service_account" "cloud_controller_manager" {
   metadata {
-    name = "cloud-controller-manager"
+    name      = "cloud-controller-manager"
     namespace = "kube-system"
   }
 }
@@ -41,12 +41,12 @@ resource "kubernetes_cluster_role_binding" "system_cloud_controller_manager" {
 # Deploy cloud controller
 resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
   metadata {
-    name = "hcloud-cloud-controller-manager"
+    name      = "hcloud-cloud-controller-manager"
     namespace = "kube-system"
   }
 
   spec {
-    replicas = 1
+    replicas               = 1
     revision_history_limit = 2
     selector {
       match_labels = {
@@ -66,31 +66,31 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
 
       spec {
         automount_service_account_token = true # override Terraform's default false - https://github.com/kubernetes/kubernetes/issues/27973#issuecomment-462185284
-        service_account_name = "cloud-controller-manager"
-        dns_policy = "Default"
+        service_account_name            = "cloud-controller-manager"
+        dns_policy                      = "Default"
         toleration {
-          key = "node.cloudprovider.kubernetes.io/uninitialized"
-          value = true
+          key    = "node.cloudprovider.kubernetes.io/uninitialized"
+          value  = true
           effect = "NoSchedule"
         }
 
         toleration {
-          key = "CriticalAddonsOnly"
+          key      = "CriticalAddonsOnly"
           operator = "Exists"
         }
 
         toleration {
-          key = "node-role.kubernetes.io/master"
+          key    = "node-role.kubernetes.io/master"
           effect = "NoSchedule"
         }
 
         toleration {
-          key = "node-role.kubernetes.io/control-plane"
+          key    = "node-role.kubernetes.io/control-plane"
           effect = "NoSchedule"
         }
 
         toleration {
-          key = "node.kubernetes.io/not-ready"
+          key    = "node.kubernetes.io/not-ready"
           effect = "NoSchedule"
         }
 
@@ -128,7 +128,7 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
             value_from {
               secret_key_ref {
                 name = "hcloud"
-                key = "token"
+                key  = "token"
               }
             }
           }
@@ -138,7 +138,7 @@ resource "kubernetes_deployment" "hcloud_cloud_controller_manager" {
             value_from {
               secret_key_ref {
                 name = "hcloud"
-                key = "network"
+                key  = "network"
               }
             }
           }

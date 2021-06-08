@@ -1,2 +1,2 @@
 # terraform-kubernetes-hcloud-controller-manager
-A simple module to provision the [Hetzner Cloud Controller Manager](https://github.com/hetznercloud/hcloud-cloud-controller-manager) (With Network & Load Balancer Support) inside a Kubernetes cluster running on Hetzner Cloud. See the variables file for the available configuration options. Please note that this module **requires Kubernetes 1.16 or newer**.
+A simple module to provision the [Hetzner Cloud Controller Manager](https://github.com/hetznercloud/hcloud-cloud-controller-manager) (With Network & Load Balancer Support) inside a Kubernetes cluster running on Hetzner Cloud. See the variables file for the available configuration options. Please note that this module **requires Kubernetes 1.18 or newer**.
